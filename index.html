@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<title>Quadra</title>
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<link href="css/displayer.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/displayer.js"></script>
+		<script type="text/javascript" src="js/game.js"></script>
+		<script type="text/javascript" src="js/ia.js"></script>
+		<script type="text/javascript" src="js/animation.js"></script>
+		<script type="text/javascript" src="js/tactile.js"></script>
+		<style type="text/css">
+			#container {
+				text-align:center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="navbar">
+			<div class="navbar-inner">
+				<a class="brand" href="#">Quadra</a>
+				<ul class="nav">
+					<li>
+						<a href="#modalRules"  data-toggle="modal" role="button"><i class="icon-info-sign"></i> R&egrave;gles</a>
+					</li>
+					<li>
+						<a href="#" onclick="initGame();"><i class="icon-plus-sign"></i> Nouvelle partie</a>
+					</li>
+					<li class="divider-vertical"></li>
+					<li class="navbar-form form-inline">
+						&nbsp;
+						<div id="ia" class="btn-group" data-toggle="buttons-radio">
+							<button id="disable" class="btn active" onclick="showIA(false);">Normal</button>
+							<button id="enable" class="btn" onclick="showIA(true);">IA</button>
+						</div>
+					</li>
+					<li id="difficulty" class="navbar-form form-inline" style="display:none;">
+						&nbsp;
+						<div class="btn-group" data-toggle="buttons-radio">
+							<button id="easy" class="btn active">Facile</button>
+							<button id="normal" class="btn">Normal</button>
+							<button id="hard" class="btn">Difficile</button>
+						</div>
+					</li>
+				</ul>
+				<h5 id="tour" class="pull-right" style="margin-bottom: 0;"></h5>
+			</div>
+		</div>
+		<div id="container">
+		</div>
+	<div id="modalRules" class="modal hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h3>R&egrave;gles</h3>
+		</div>
+		<div class="modal-body">
+			<ul>
+				<li>Le jeu se d&eacute;roule en tour par tour</li>
+				<li>Un joueur est tiré au sort pour commencer</li>
+				<li>Chaque joueur se voit distribuer 3 cartes en d&eacute;but de partie</li>
+				<li>Les cartes des deux joueurs sont distribu&eacute;es face visible</li>
+				<li>Un joueur doit poser une seule carte par tour</li>
+				<li>Une carte est distribu&eacute;e &agrave; la fin de chaque tour au joueur en cours jusqu'&agrave; un total de 24 cartes</li>
+				<li>Lorsqu'une carte est pos&eacute;e, elle est initialis&eacute;e sous le contr&ocirc;le du joueur qui l'a mise en jeu</li>
+				<li>Lorsqu'une carte est pos&eacute;e, elle attaque (avec ses valeurs d'attaque, en rouge) les cartes d&eacute;j&agrave; en jeu (contre leurs valeurs de d&eacute;fense, en bleu)</li>
+				<li>Lors d'un combat, uniquement les valeurs d'attaque et de d&eacute;fense des cot&eacute;s adjacents des deux cartes sont pris en compte</li>
+				<li>A l'issue d'un combat entre deux cartes, si la carte d&eacute;fensive est perdante elle est plac&eacute;e sous le contr&ocirc;l&eacute;e de la carte offensive</li>
+				<li>Le jeu se poursuit jusqu'&agrave; ce que l'ensemble du plateau soit remplit</li>
+			</ul>
+		</div>
+	</div>
+	</body>
+</html>
