@@ -1,7 +1,7 @@
 
 function playIA() {
 	$('#player2').append('<img id="loader" src="img/ajax-loader.gif">');
-	setTimeout('placeCardIA();',500);
+	setTimeout('placeCardIA();',1500);
 }
 function dropCard(card,cardSpace) {
 	$(card).hide();

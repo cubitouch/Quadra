@@ -2,10 +2,11 @@ var _cards = new Array();
 var _lastCard = 0;
 
 var _tour = 0;
-var _difficulty = 0;
+var _difficulty = false;
 var _currentPlayer = 2;
 
 function initGame() {
+	closeMenu();
 	displayGame();
 	createDeck();
 	distributeCards();
@@ -16,7 +17,7 @@ function clearGame() {
 	_cards = new Array();
 	_lastCard = 0;
 	_tour = 0;
-	_difficulty = 0;
+	_difficulty = false;
 	_currentPlayer = Math.round(randomInt(10,20)/10);
 	console.log('Joueur '+_currentPlayer+' commence');
 	
@@ -30,7 +31,7 @@ function gameLoop(){
 	
 	var totalPlayer1 = $('#game .player1').length;
 	var totalPlayer2 = $('#game .player2').length;
-	$('#tour').html('Tour&nbsp;:&nbsp;'+_tour+'&nbsp;|&nbsp;Scores&nbsp;:&nbsp;'+totalPlayer1+'&nbsp;vs&nbsp;'+totalPlayer2);
+	$('#tour').html('&nbsp;-&nbsp;Tour&nbsp;:&nbsp;'+_tour+'&nbsp;|&nbsp;Scores&nbsp;:&nbsp;'+totalPlayer1+'&nbsp;vs&nbsp;'+totalPlayer2);
 	
 	if ($('#player1 .card, #player2 .card').length > 0) {
 		keepPlaying();
@@ -40,12 +41,12 @@ function gameLoop(){
 }
 
 function keepPlaying() {
-	$('.player fieldset legend i.icon-time').remove();
+	$('.player h5 i.fi-clock').remove();
 	if (_currentPlayer == 1) {
 		_currentPlayer = 2;
 		
 		destroyDraggableCards(1);
-		if (_difficulty === false) {
+		if (!_difficulty) {
 			createDraggableCards(2);
 		} else {
 			playIA();
@@ -56,10 +57,10 @@ function keepPlaying() {
 		destroyDraggableCards(2);
 		createDraggableCards(1);
 	}
-	$('#player'+_currentPlayer+' fieldset legend').append('<i class="icon-time"/>');
+	$('#player'+_currentPlayer+' h5').append(' <i class="fi-clock"/>');
 }
 function stopPlaying(totalPlayer1,totalPlayer2) {
-	if (_difficulty === false) {
+	if (!_difficulty) {
 		if (totalPlayer1 == totalPlayer2){
 			alertBox('Fin du jeu : Egalit&eacute;.');
 		} else {
@@ -84,15 +85,13 @@ function createCardObject(
 	right_a, 	right_d
 ) {
 	// console.log('create card: ['+top_a+'/'+top_d+']-['+bottom_a+'/'+bottom_d+']-['+left_a+'/'+left_d+']-['+right_a+'/'+right_d+']');
-	var card = $('<table class="card"/>');
+	var card = $('<div class="card"/>');
+	$(card).append('<div class="line"/><div class="line"/><div class="line"/>');
 	
-	$(card).append('<tr/><tr/><tr/>');
-	
-	$(card).find('tr:eq(0)').append('<td/><td class="caracteristic top"><span class="attack">'+top_a+'</span>/<span class="defense">'+top_d+'</span></td><td/>');
-	$(card).find('tr:eq(2)').append('<td/><td class="caracteristic bottom"><span class="attack">'+bottom_a+'</span>/<span class="defense">'+bottom_d+'</span></td><td/>');
-	$(card).find('tr:eq(1)').append('<td class="caracteristic left"><span class="attack">'+left_a+'</span>/<span class="defense">'+left_d+'</span></td>');
-	$(card).find('tr:eq(1)').append('<td/>');
-	$(card).find('tr:eq(1)').append('<td class="caracteristic right"><span class="attack">'+right_a+'</span>/<span class="defense">'+right_d+'</span></td>');
+	$(card).find('div.line:eq(0)').append('<div class="caracteristic space"><span class="attack">'+top_a+'</span>/<span class="defense">'+top_d+'</span></div>');
+	$(card).find('div.line:eq(2)').append('<div class="caracteristic space"><span class="attack">'+bottom_a+'</span>/<span class="defense">'+bottom_d+'</span></div>');
+	$(card).find('div.line:eq(1)').append('<div class="caracteristic space"><span class="attack">'+left_a+'</span>/<span class="defense">'+left_d+'</span></div>');
+	$(card).find('div.line:eq(1)').append('<div class="caracteristic space"><span class="attack">'+right_a+'</span>/<span class="defense">'+right_d+'</span></div>');
 	
 	$(card).attr('data-top-attack',top_a);
 	$(card).attr('data-top-defense',top_d);
@@ -268,6 +267,7 @@ function fightCard(card1X,card1Y,card2X,card2Y) {
 		$(card2).parent().removeClass('player2');
 		// console.log($(card1).parent().hasClass('player1'));
 		$(card2).parent().addClass('player'+($(card1).parent().hasClass('player1')?1:2));
+		$(card2).hide().show( 'pulsate', {direction: (_currentPlayer == 1 ? 'left' : 'right')}, 200 );
 	}
 }
 
@@ -323,31 +323,16 @@ function getMin(top,bottom,left,right) {
 function alertBox(message) {
     var html = '';
 
-    html += '<div title="Notification" class="modal">';
-    html += '   <div class="modal-header">';
-    html += '       <a href="#" class="close" data-dismiss="modal">x</a>';
-    html += '       <h3>Notification</h3>';
-    html += '   </div>';
-    html += '   <div class="modal-body">';
-    html += '       <p>' + message + '</p>';
-    html += '   </div>';
+    html += '<div id="notification" class="reveal-modal" data-reveal>';
+    html += '   <h2>Notification</h2>';
+    html += '   <p>' + message + '</p>';
+    html += '   <a class="close-reveal-modal">&#215;</a>';
     html += '</div>';
-
 
     var popup = $(html);
 
-    $('form').append(popup);
+    $('body').append(popup);
+	$(popup).foundation('reveal');
+	$(popup).foundation('reveal','open');
 
-    $(popup).on('shown', function () {
-        $('.modal-backdrop').last().attr('style', 'z-index: 1055;');
-        $(popup).attr('style', 'z-index: 1060;');
-    });
-
-    $(popup).modal({ show: false });
-
-    $(popup).on('hidden', function () {
-        $(popup).remove();
-    });
-
-    $(popup).modal('show');
 }

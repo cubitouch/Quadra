@@ -4,36 +4,66 @@ body, html {
 	margin: 0;
 }
 
+#container {
+	text-align:center;
+}
+#game {
+	margin: 0 auto;
+}
+
+#game tr:nth-child(odd) td:nth-child(odd){
+	background-color: #FFFFFF;
+}
+#game tr:nth-child(odd) td:nth-child(even){
+	background-color: #F5F5F5;
+}
+#game tr:nth-child(even) td:nth-child(odd){
+	background-color: #F5F5F5;
+}
+#game tr:nth-child(even) td:nth-child(even){
+	background-color: #FFFFFF;
+}
+
 .player  .ui-draggable.card:hover {
 	cursor: pointer;
 }
 .player  .ui-draggable-dragging.card:hover {
 	cursor: move;
+	z-index:30;
 }
+.ui-draggable { -ms-touch-action: none; }
 
 .cardSpace {
-	height: 120px;
+	height: 64px;
 	position: relative;
 	text-align: normal;
 }
 .cardSpace.dragActive,
 .cardSpace.ui-droppable.ui-state-active {
-	background-color: #F2F6E5;
+	background-color: #E2E2E2 !important;
 }
+
+#player1 .cardSpace.dragActive{
+	background-color: #D1E2F2 !important;
+}
+#player2 .cardSpace.dragActive{
+	background-color: #FDD2C1 !important;
+}
+
 .cardSpace.player1{
-	background-color: #D1E2F2;
+	background-color: #D1E2F2 !important;
 }
 .cardSpace.player2{
-	background-color: #FDD2C1;
+	background-color: #FDD2C1 !important;
 }
 
 .cardSpace  .card{
-	z-index:100;
-	width: 100px;
-	height: 100px;
+	z-index:20;
+	width: 60px;
+	height: 60px;
 	margin: 0 auto;
 	
-	padding: 4px;
+	padding: 2px;
 	background-color: #fff;
 	border: 1px solid #ccc;
 	border: 1px solid rgba(0, 0, 0, 0.2);
@@ -41,20 +71,39 @@ body, html {
 	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-.cardSpace  .card td {
+.cardSpace  .card  td {
 	border: none;
 	text-align: center;
 }
-
+#game .cardSpace {
+	width: 55px;
+	height: 55px;
+	padding: 3px;
+}
+#game .cardSpace .card{
+	width: 50px;
+	height: 50px;
+	padding: 0px;
+}
 .player .cardSpace {
 	width: 100%;
 	margin: 0;
 }
 
 .cardSpace  .caracteristic {
-	/*position: absolute;*/
-	font-size: 12px;
+	font-size: 11px;
 	font-weight: bold;
+}
+#game .cardSpace  {
+	line-height: 1;
+}
+.card .space {
+	padding:0px;
+	width: 27px;
+	display:inline-block;
+}
+#game .card .space {
+	width: 20px;
 }
 
 .cardSpace  .caracteristic .attack {
@@ -62,21 +111,4 @@ body, html {
 }
 .cardSpace  .caracteristic .defense {
 	color: #6666CC;
-}
-
-.cardSpace  .caracteristic.top {
-	margin-top: 6px;
-	margin-left: -5%;
-}
-.cardSpace  .caracteristic.bottom {
-	margin-top: 94px;
-	margin-left: -5%;
-}
-.cardSpace  .caracteristic.left {
-	margin-top: 50px;
-	margin-left: -45%;
-}
-.cardSpace  .caracteristic.right {
-	margin-top: 50px;
-	margin-left: 35%;
 }

@@ -1,24 +1,27 @@
+function closeMenu() {
+	$('.toggle-topbar.menu-icon a').click();
+}
 function displayGame() {
 	var cell;
 	var line;
 	
-	var plateau = $('<div class="row-fluid"/>');
+	var plateau = $('<div class="row"/>');
 	
-	var player1 = $('<div id="player1" class="player span2"></div>');
-	var player2 = $('<div id="player2" class="player span2"></div>');
-	var game = $('<div class="game span8"><table id="game" class="table table-bordered"/></div>');
+	var player1 = $('<div id="player1" class="player small-2 columns"></div>');
+	var player2 = $('<div id="player2" class="player small-2 columns"></div>');
+	var game = $('<div class="game small-8 columns"><table id="game" class=""/></div>');
 	
 	console.log('clear');
 	clearGame();
 	
-	$(player1).append('<fieldset><legend>Joueur 1</legend></fieldset>');
-	$(player2).append('<fieldset><legend>Joueur 2</legend></fieldset>');
+	$(player1).append('<h5>Joueur 1</h5>');
+	$(player2).append('<h5>Joueur 2</h5>');
 	
 	for (i = 0; i < 4; i++) {
 		line = $('<tr/>');
 		
 		for (j = 0; j < 6; j++) {
-			$(line).append('<td class="cardSpace span2" data-x="'+i+'" data-y="'+j+'"/>');
+			$(line).append('<td class="cardSpace" data-x="'+i+'" data-y="'+j+'"></td>');
 		}
 		
 		$(game).find('table').append(line);
@@ -98,16 +101,9 @@ function _draggableStop() {
 	$('.cardSpace.dropActive').removeClass('dropActive');
 }
 
-function showIA(set) {
-	if (set) {
-		$('#difficulty').show();
-	} else {
-		$('#difficulty').hide();	
-	}
-}
 function distributeCard(player,id) {
 	console.log('player '+player+' pick card '+id);
-	$('#player'+player).append('<div id="card'+id+'" class="cardSpace span2"/>');
+	$('#player'+player).append('<div id="card'+id+'" class="cardSpace"/>');
 	// console.log($(_cards[id]));
 	addCard(_cards[id],$('#card'+id));
 }

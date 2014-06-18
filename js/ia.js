@@ -1,8 +1,7 @@
 
 function getDifficulty() {
-	if ($('#difficulty:visible').length == 0)
-		return false;
-	return $('#difficulty .btn.active').attr('id');
+	return true;
+	// return ($('#ia .btn.active').attr('id')=='enable');
 }
 
 function placeCardIA() {
@@ -13,73 +12,62 @@ function placeCardIA() {
 	var cardSpaceValues = new Array();
 	var cardValues = new Array();
 	
-	// if (_difficulty == 'easy') {
-		// faire la liste des emplacements vides // fightCard(x,x,x,x,true)
-		for (i = 0; i<cardSpaces.length; i++) {
-			cardSpaceValues[i] = {x:$(cardSpaces[i]).data('x'), y:$(cardSpaces[i]).data('y'), score:0};
+	// faire la liste des emplacements vides // fightCard(x,x,x,x,true)
+	for (i = 0; i<cardSpaces.length; i++) {
+		cardSpaceValues[i] = {x:$(cardSpaces[i]).data('x'), y:$(cardSpaces[i]).data('y'), score:0};
+	}
+	// pour chaque cartes en main
+	for (i = 0; i<cards.length; i++) {
+		cardValues[i] = new Array();
+		// faire la liste des X emplacements vides qui font gagner X cartes
+		for (j = 0; j<cardSpaceValues.length; j++) {
+			cardSpaceValues[j].score = 0;
 		}
-		// pour chaque cartes en main
-		for (i = 0; i<cards.length; i++) {
-			cardValues[i] = new Array();
-			// faire la liste des X emplacements vides qui font gagner X cartes
-			for (j = 0; j<cardSpaceValues.length; j++) {
-				cardSpaceValues[j].score = 0;
-			}
+		
+		for (j = 0; j<cardSpaceValues.length; j++) {
+			cardSpaceValues[j].score += (fightIACard(cards[i],cardSpaceValues[j].x,cardSpaceValues[j].y,cardSpaceValues[j].x-1,cardSpaceValues[j].y) ? 1 : 0);
+			cardSpaceValues[j].score += (fightIACard(cards[i],cardSpaceValues[j].x,cardSpaceValues[j].y,cardSpaceValues[j].x+1,cardSpaceValues[j].y) ? 1 : 0);
+			cardSpaceValues[j].score += (fightIACard(cards[i],cardSpaceValues[j].x,cardSpaceValues[j].y,cardSpaceValues[j].x,cardSpaceValues[j].y-1) ? 1 : 0);
+			cardSpaceValues[j].score += (fightIACard(cards[i],cardSpaceValues[j].x,cardSpaceValues[j].y,cardSpaceValues[j].x,cardSpaceValues[j].y+1) ? 1 : 0);
 			
-			for (j = 0; j<cardSpaceValues.length; j++) {
-				cardSpaceValues[j].score += (fightIACard(cards[i],cardSpaceValues[j].x,cardSpaceValues[j].y,cardSpaceValues[j].x-1,cardSpaceValues[j].y) ? 1 : 0);
-				cardSpaceValues[j].score += (fightIACard(cards[i],cardSpaceValues[j].x,cardSpaceValues[j].y,cardSpaceValues[j].x+1,cardSpaceValues[j].y) ? 1 : 0);
-				cardSpaceValues[j].score += (fightIACard(cards[i],cardSpaceValues[j].x,cardSpaceValues[j].y,cardSpaceValues[j].x,cardSpaceValues[j].y-1) ? 1 : 0);
-				cardSpaceValues[j].score += (fightIACard(cards[i],cardSpaceValues[j].x,cardSpaceValues[j].y,cardSpaceValues[j].x,cardSpaceValues[j].y+1) ? 1 : 0);
-				
-				cardValues[i][j] = {x:cardSpaceValues[j].x, y:cardSpaceValues[j].y, score:cardSpaceValues[j].score};
-			}
+			cardValues[i][j] = {x:cardSpaceValues[j].x, y:cardSpaceValues[j].y, score:cardSpaceValues[j].score};
+		}
+	}
+	
+	var cardId = 0;
+	var cardScore = 0;
+	var cardSpacesScore = 0;
+	
+	// choisir la carte qui fait gagner le plus de cartes
+	for (i = 0; i<cardValues.length; i++) {
+		cardSpacesScore = 0;
+		
+		for (j = 0; j<cardValues[i].length; j++) {
+			cardSpacesScore += cardValues[i][j].score;
 		}
 		
-		var cardId = 0;
-		var cardScore = 0;
-		var cardSpacesScore = 0;
-		
-		// choisir la carte qui fait gagner le plus de cartes
-		for (i = 0; i<cardValues.length; i++) {
-			cardSpacesScore = 0;
-			
-			for (j = 0; j<cardValues[i].length; j++) {
-				cardSpacesScore += cardValues[i][j].score;
-			}
-			
-			if (cardScore < cardSpacesScore) {
-				cardScore = cardSpacesScore;
-				cardId = i;
-			}
+		if (cardScore < cardSpacesScore) {
+			cardScore = cardSpacesScore;
+			cardId = i;
 		}
-		
-		var cardSpaceId = 0;
-		var cardSpaceScore = 0;
-		
-		// choisir l'emplacement qui fait gagner le plus de cartes
-		for (i = 0; i < cardValues[cardId].length; i++) {
-			if (cardSpaceScore < cardValues[cardId][i].score) {
-				cardSpaceScore = cardValues[cardId][i].score;
-				cardSpaceId = i;
-			}
+	}
+	
+	var cardSpaceId = 0;
+	var cardSpaceScore = 0;
+	
+	// choisir l'emplacement qui fait gagner le plus de cartes
+	for (i = 0; i < cardValues[cardId].length; i++) {
+		if (cardSpaceScore < cardValues[cardId][i].score) {
+			cardSpaceScore = cardValues[cardId][i].score;
+			cardSpaceId = i;
 		}
-		// console.log(cardSpaceId+'-'+cardSpaceScore);
-		
-		cardSpace = $(cardSpaces).filter(function() {
-			return ($(this).data('x')==cardValues[cardId][cardSpaceId].x && $(this).data('y')==cardValues[cardId][cardSpaceId].y);
-		});
-		// console.log($(cardSpace).length);
-		dropCard(cards[cardId],cardSpace);
-		// $(cardSpace).append(cards[cardId]);
-		$(cardSpace).addClass('player2');
-	// } else if (_difficulty == 'normal') {
-		// $(cardSpace).append($('#player2 .card:first'));
-		// $(cardSpace).addClass('player2');
-	// } else if (_difficulty == 'hard') {
-		// $(cardSpace).append($('#player2 .card:first'));
-		// $(cardSpace).addClass('player2');
-	// }
+	}
+	
+	cardSpace = $(cardSpaces).filter(function() {
+		return ($(this).data('x')==cardValues[cardId][cardSpaceId].x && $(this).data('y')==cardValues[cardId][cardSpaceId].y);
+	});
+	dropCard(cards[cardId],cardSpace);
+	$(cardSpace).addClass('player2');
 	
 	placeCard(cardSpace);
 	$('#player2 #loader').remove();
