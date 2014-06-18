@@ -1,6 +1,6 @@
 Quadra
 ---------------
 
-Adaptation of Final Fantasy 8 card playing game
+Adaptation of Triple Triad Final Fantasy 8's card playing game.
 
-![Vue classique](http://cubitouch.fr/screenshots/quadra.png)
+![Vue mobile](http://cubitouch.fr/screenshots/quadra-mobile.png)
