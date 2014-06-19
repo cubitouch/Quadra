@@ -1,5 +1,6 @@
 body, html {
 	width: 100%;
+	height: 100%;
 	padding: 0;
 	margin: 0;
 }
@@ -22,6 +23,10 @@ body, html {
 }
 #game tr:nth-child(even) td:nth-child(even){
 	background-color: #FFFFFF;
+}
+
+table {
+	border:none;
 }
 
 .player  .ui-draggable.card:hover {

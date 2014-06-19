@@ -1,69 +1,91 @@
 ﻿<!doctype html>
 <html lang="fr">
-	<head>
-		<title>Quadra</title>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="user-scalable=no, width=540px, initial-scale=1, maximum-scale=1"/>
+<head>
+    <title>Quadra</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=540px, initial-scale=1, maximum-scale=1" />
 
-		<link rel="stylesheet" href="css/foundation.css" />
-		<script type="text/javascript" src="js/modernizr.js"></script>
-		<link rel="stylesheet" href="css/normalize.css" />
-		<link rel="stylesheet" href="font/foundation-icons.css" />
-		<link rel="stylesheet" href="css/displayer.css" />
-        <!-- Cordova reference, this is added to your app when it's built. -->
-        <script src="cordova.js"></script>
-	</head>
-	<body>
-		<div class="fixed">
-			<nav class="top-bar" data-topbar>
-				<ul class="title-area">
-					<li class="name">
-						<h1><a href="#">Quadra<span id="tour"></span></a></h1>
-						
-					</li>
-					<li class="toggle-topbar menu-icon"><a href="#"></a></li>
-				</ul>
-				<section class="top-bar-section">
-					<ul class="right">
-					  <li><a href="#" data-reveal-id="regles" onclick="closeMenu();">R&egrave;gles</a></li>
-					  <li><a href="quadra.apk"><i class="fi-download"></i> Android</a></li>
-					</ul>
-					<ul class="left">
-						<li><a href="#" onclick="initGame();"><i class="fi-plus"></i> Nouvelle partie</a></li>
-					</ul>
-				</section>
-			</nav>
-			<div id="regles" class="reveal-modal" data-reveal>
-				<h2>R&egrave;gles</h2>
-				<ul>
-					<li>Un joueur est tiré au sort pour commencer</li>
-					<li>Lorsqu'une carte est pos&eacute;e elle est plac&eacute;e sous le contr&ocirc;le du joueur qui l'a mise en jeu</li>
-					<li>Elle attaque les cartes d&eacute;j&agrave; en place (les valeurs en rouge contre les valeurs en bleu) sur les côté adjacents.</li>
-					<li>Si la valeur en rouge est supérieure elle gagne, sinon rien ne se passe.</li>
-					<li>Les cartes battues sont plac&eacute;e sous le contr&ocirc;l&eacute;e du joueur adverse</li>
-					<li>Le jeu se poursuit jusqu'&agrave; ce que l'ensemble du plateau soit remplit</li>
-				</ul>
-				<a class="close-reveal-modal">&#215;</a>
-			</div>
-		</div>
-		<br/>
-		<div id="container">
-		</div>
-		
-		<script type="text/javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" src="js/foundation.min.js"></script>
-		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
-		<script type="text/javascript" src="js/displayer.js"></script>
-		<script type="text/javascript" src="js/game.js"></script>
-		<script type="text/javascript" src="js/ia.js"></script>
-		<script type="text/javascript" src="js/animation.js"></script>
-		<script type="text/javascript" src="js/tactile.js"></script>
-		<script type="text/javascript">
-				$(document).foundation();
-				$(document).on('closed', '#notification[data-reveal]', function () {
-					$('#notification').remove();
-				});
-		</script>
-	</body>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script type="text/javascript" src="js/modernizr.js"></script>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="font/foundation-icons.css" />
+    <link rel="stylesheet" href="css/displayer.css" />
+    <!-- Cordova reference, this is added to your app when it's built. -->
+    <script src="cordova.js"></script>
+    <script type="text/javascript" src="js/shake.js"></script>
+
+</head>
+<body>
+    <div class="off-canvas-wrap" data-offcanvas style="height:100%;">
+        <div class="inner-wrap" style="height:100%;">
+            <nav class="tab-bar">
+                <section class="left-small">
+                    <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+                </section>
+
+                <section class="middle tab-bar-section">
+                    <h1 class="title">Quadra<span id="tour"></span></h1>
+                </section>
+            </nav>
+
+            <aside class="left-off-canvas-menu">
+                <ul class="off-canvas-list">
+                    <li><label>Menu</label></li>
+                    <li><a href="#" data-reveal-id="regles" onclick="closeMenu();"><i class="fi-info"></i> R&egrave;gles</a></li>
+                    <li><a href="#" onclick="initGame();"><i class="fi-plus"></i> Nouvelle partie</a></li>
+                    <li><a href="quadra.apk"><i class="fi-social-android"></i> Android</a></li>
+                    <li><a href="http://github.com/cubitouch/Quadra" target="_blank"><i class="fi-social-github"></i> GitHub</a></li>
+                </ul>
+            </aside>
+
+            <section class="main-section" style="height:100%;">
+                <br />
+                <div id="container" style="height:100%;">
+                </div>
+            </section>
+
+            <a class="exit-off-canvas"></a>
+
+        </div>
+    </div>
+    <div id="regles" class="reveal-modal" data-reveal>
+        <h2>R&egrave;gles</h2>
+        <ul>
+            <li>Un joueur est tiré au sort pour commencer</li>
+            <li>Lorsqu'une carte est pos&eacute;e elle est plac&eacute;e sous le contr&ocirc;le du joueur qui l'a mise en jeu</li>
+            <li>Elle attaque les cartes d&eacute;j&agrave; en place (les valeurs en rouge contre les valeurs en bleu) sur les côté adjacents.</li>
+            <li>Si la valeur en rouge est supérieure elle gagne, sinon rien ne se passe.</li>
+            <li>Les cartes battues sont plac&eacute;e sous le contr&ocirc;l&eacute;e du joueur adverse</li>
+            <li>Le jeu se poursuit jusqu'&agrave; ce que l'ensemble du plateau soit remplit</li>
+        </ul>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/foundation.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="js/displayer.js"></script>
+    <script type="text/javascript" src="js/game.js"></script>
+    <script type="text/javascript" src="js/ia.js"></script>
+    <script type="text/javascript" src="js/animation.js"></script>
+    <script type="text/javascript" src="js/tactile.js"></script>
+    <script type="text/javascript">
+        $(document).foundation();
+        $(document).on('closed', '#notification[data-reveal]', function () {
+            $('#notification').remove();
+        });
+
+        // Wait for Cordova to connect with the device
+        document.addEventListener("deviceready", onDeviceReady, false);
+
+        // Cordova is ready to be used!
+        function onDeviceReady() {
+            shake.startWatch(function () {
+                closeMenu();
+                initGame();
+            });
+        }
+    </script>
+</body>
 </html>

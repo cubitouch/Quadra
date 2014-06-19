@@ -262,12 +262,18 @@ function fightCard(card1X,card1Y,card2X,card2Y) {
 	// console.log(fightZone);
 	// console.log(fightResult);
 	
+	var cardPlayer = 0;
 	if (fightResult) {
+		if ($(card2).parent().hasClass('player1'))
+			cardPlayer = 1;
+		else if ($(card2).parent().hasClass('player2'))
+			cardPlayer = 2;
 		$(card2).parent().removeClass('player1');
 		$(card2).parent().removeClass('player2');
 		// console.log($(card1).parent().hasClass('player1'));
 		$(card2).parent().addClass('player'+($(card1).parent().hasClass('player1')?1:2));
-		$(card2).hide().show( 'pulsate', {direction: (_currentPlayer == 1 ? 'left' : 'right')}, 200 );
+		if (_currentPlayer != cardPlayer)
+			$(card2).hide().show( 'pulsate', {direction: (_currentPlayer == 1 ? 'left' : 'right')}, 200 );
 	}
 }
 

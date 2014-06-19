@@ -1,5 +1,5 @@
 function closeMenu() {
-	$('.toggle-topbar.menu-icon a').click();
+	$('.exit-off-canvas').click();
 }
 function displayGame() {
 	var cell;
@@ -38,11 +38,12 @@ function displayGame() {
 	});
 	
 	$(plateau).append(player1);
+	$(game).find('table').hide();
 	$(plateau).append(game);
 	$(plateau).append(player2);
 	
 	$('#container').append(plateau);
-	
+	$(game).find('table').show( 'slide', {direction: 'up'}, 500 );
 	// $('#game .cardSpace').eq(0).append(_cards[0]);
 	// $('#player1 .cardSpace').eq(0).append($(_cards[0]).clone());
 }
