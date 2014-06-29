@@ -14,8 +14,8 @@ function displayGame() {
 	console.log('clear');
 	clearGame();
 	
-	$(player1).append('<h5>Joueur 1</h5>');
-	$(player2).append('<h5>Joueur 2</h5>');
+	$(player1).append('<h5>Player 1</h5>');
+	$(player2).append('<h5>Player 2</h5>');
 	
 	for (i = 0; i < 4; i++) {
 		line = $('<tr/>');

@@ -13,9 +13,20 @@
     <!-- Cordova reference, this is added to your app when it's built. -->
     <script src="cordova.js"></script>
     <script type="text/javascript" src="js/shake.js"></script>
-
+	<style type="text/css">
+		.orbit-container {
+			height:90%;
+		}
+		.orbit-slides-container {
+			height: 90%;
+		}
+		.orbit-prev, .orbit-next {
+			background-color: rgba(0, 0, 0, 0.3);
+			color: #FFF;
+		}
+	</style>
 </head>
-<body>
+<body style=" background-image: url('./img/fond.svg'); background-attachment:fixed; background-size:cover;">
     <div class="off-canvas-wrap" data-offcanvas style="height:100%;">
         <div class="inner-wrap" style="height:100%;">
             <nav class="tab-bar">
@@ -31,10 +42,8 @@
             <aside class="left-off-canvas-menu">
                 <ul class="off-canvas-list">
                     <li><label>Menu</label></li>
-                    <li><a href="#" data-reveal-id="regles" onclick="closeMenu();"><i class="fi-info"></i> R&egrave;gles</a></li>
-                    <li><a href="#" onclick="initGame();"><i class="fi-plus"></i> Nouvelle partie</a></li>
-                    <li><a href="quadra.apk"><i class="fi-social-android"></i> Android</a></li>
-                    <li><a href="http://github.com/cubitouch/Quadra" target="_blank"><i class="fi-social-github"></i> GitHub</a></li>
+                    <li><a href="#" data-reveal-id="regles" onclick="closeMenu();"><i class="fi-info"></i> Tutorial</a></li>
+                    <li><a href="#" onclick="initGame();"><i class="fi-plus"></i> New game</a></li>
                 </ul>
             </aside>
 
@@ -48,16 +57,53 @@
 
         </div>
     </div>
-    <div id="regles" class="reveal-modal" data-reveal>
-        <h2>R&egrave;gles</h2>
-        <ul>
-            <li>Un joueur est tiré au sort pour commencer</li>
-            <li>Lorsqu'une carte est pos&eacute;e elle est plac&eacute;e sous le contr&ocirc;le du joueur qui l'a mise en jeu</li>
+    <div id="regles" class="reveal-modal" style="width:100%;height:100%;top:0;left:40%;" data-reveal>
+		<ul data-orbit data-options="timer:false;slide_number:false;bullets:false;">
+		  <li class="active">
+			<img src="tutorial/11.png" alt="step 1" style="margin: 0 auto; max-width:80%;" />
+			<div class="orbit-caption">
+			  Each players have to place a card turn by turn (according to the <i class="fi-clock"></i> icon).
+			</div>
+		  </li>
+		  <li>
+			<img src="tutorial/12.png" alt="step 2" style="margin: 0 auto; max-width:80%;" />
+			<div class="orbit-caption">
+			  Each card is controlled by its own player. Blue for you...
+			</div>
+		  </li>
+		  <li>
+			<img src="tutorial/13.png" alt="step 3" style="margin: 0 auto; max-width:80%;" />
+			<div class="orbit-caption">
+			  And red for the opponent.
+			</div>
+		  </li>
+		  <li>
+			<img src="tutorial/14.png" alt="step 4" style="margin: 0 auto; max-width:80%;" />
+			<div class="orbit-caption">
+			  A card try to win other ones by fighting her red values against the blue ones.
+			</div>
+		  </li>
+		  <li>
+			<img src="tutorial/15.png" alt="step 5" style="margin: 0 auto; max-width:80%;" />
+			<div class="orbit-caption">
+			  As you can see.
+			</div>
+		  </li>
+		  <li>
+			<img src="tutorial/16.png" alt="step 6" style="margin: 0 auto; max-width:80%;" />
+			<div class="orbit-caption">
+			  When the board is full, the player with the more cards under his control wins.
+			</div>
+		  </li>
+		</ul>
+        <!--
+		<ul>
             <li>Elle attaque les cartes d&eacute;j&agrave; en place (les valeurs en rouge contre les valeurs en bleu) sur les côté adjacents.</li>
             <li>Si la valeur en rouge est supérieure elle gagne, sinon rien ne se passe.</li>
             <li>Les cartes battues sont plac&eacute;e sous le contr&ocirc;l&eacute;e du joueur adverse</li>
             <li>Le jeu se poursuit jusqu'&agrave; ce que l'ensemble du plateau soit remplit</li>
         </ul>
+		-->
         <a class="close-reveal-modal">&#215;</a>
     </div>
 

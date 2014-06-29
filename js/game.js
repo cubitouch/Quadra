@@ -31,7 +31,7 @@ function gameLoop(){
 	
 	var totalPlayer1 = $('#game .player1').length;
 	var totalPlayer2 = $('#game .player2').length;
-	$('#tour').html('&nbsp;-&nbsp;Tour&nbsp;:&nbsp;'+_tour+'&nbsp;|&nbsp;Scores&nbsp;:&nbsp;'+totalPlayer1+'&nbsp;vs&nbsp;'+totalPlayer2);
+	$('#tour').html('&nbsp;-&nbsp;Turn&nbsp;:&nbsp;'+_tour+'&nbsp;|&nbsp;'+totalPlayer1+'&nbsp;/&nbsp;'+totalPlayer2);
 	
 	if ($('#player1 .card, #player2 .card').length > 0) {
 		keepPlaying();
@@ -62,17 +62,17 @@ function keepPlaying() {
 function stopPlaying(totalPlayer1,totalPlayer2) {
 	if (!_difficulty) {
 		if (totalPlayer1 == totalPlayer2){
-			alertBox('Fin du jeu : Egalit&eacute;.');
+			alertBox('Game over : Draw.');
 		} else {
-			alertBox('Fin du jeu : Joueur '+(totalPlayer1 > totalPlayer2 ? '1' : '2')+' gagne.');
+			alertBox('Game over : Player '+(totalPlayer1 > totalPlayer2 ? '1' : '2')+' wins.');
 		}
 	} else {
 		if (totalPlayer1 > totalPlayer2){
-			alertBox('Fin du jeu : Vous avez gagn&eacute;.');
+			alertBox('Game over : You win.');
 		} else if (totalPlayer1 < totalPlayer2){
-			alertBox('Fin du jeu : Vous avez perdu.');
+			alertBox('Game over : You loose.');
 		} else {
-			alertBox('Fin du jeu : Egalit&eacute;.');
+			alertBox('Game over : Draw.');
 		}
 	}
 	console.log('game over');
@@ -330,7 +330,6 @@ function alertBox(message) {
     var html = '';
 
     html += '<div id="notification" class="reveal-modal" data-reveal>';
-    html += '   <h2>Notification</h2>';
     html += '   <p>' + message + '</p>';
     html += '   <a class="close-reveal-modal">&#215;</a>';
     html += '</div>';
