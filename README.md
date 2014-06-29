@@ -1,5 +1,4 @@
 # Quadra
----------------
 
 ## Tutorial
 
