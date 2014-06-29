@@ -1,7 +1,7 @@
-Quadra
+# Quadra
 ---------------
 
-# Tutorial
+## Tutorial
 
 Each players have to place a card turn by turn (according to the clock icon).
 
@@ -28,7 +28,8 @@ When the board is full, the player with the more cards under his control wins.
 ![Step six](https://raw.githubusercontent.com/cubitouch/Quadra/master/tutorial/16.png)
 
 
-# About
+## About
 
 This project if an adaptation of Triple Triad Final Fantasy 8's card playing game.
+
 You can try the web mobile optimized version at : http://cubitouch.fr/quadra-mobile
